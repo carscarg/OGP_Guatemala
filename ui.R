@@ -1,11 +1,12 @@
 ### UI General
-tags$div(height="30%")
-tags$div(height="70%")
-navbarPage(tags$img(src = "logo.png", width = "100%", height = "90px"),
+div('height'="30%",img(src = "logo.png", width = "425px", height = "79px"), br(), br(),
+
+navbarPage("",
            navbarMenu("Inicio",
                   tabPanel("¿Que es el OGP?",
-                           h3("¿Que es el OGP?")  
-                  
+                           h3("¿Que es el OGP?"),
+                           shiny::includeMarkdown("rmd/test.Rmd")
+
                     ),
                   tabPanel("Marco Jurídico",
                            h3("Marco Jurídico")  
@@ -19,8 +20,8 @@ navbarPage(tags$img(src = "logo.png", width = "100%", height = "90px"),
                     tabPanel("Salud",
                       h3("Salud")
                     ),
-                    tabPanel("Educacion",
-                      h3("Educacion")
+                    tabPanel("Educación",
+                      h3("Educación")
                     ),
                     tabPanel("Seguridad",
                       h3("Seguridad")
@@ -47,4 +48,5 @@ navbarPage(tags$img(src = "logo.png", width = "100%", height = "90px"),
                       
            )
 
+)
 #source("ui/ui_ejes.R")
