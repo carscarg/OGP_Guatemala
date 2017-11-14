@@ -3,7 +3,7 @@
 #SearchTree----
 
 output$Hierarchy <- renderUI({
-  Hierarchy=names(m)
+  Hierarchy=names(formulacion2018)
   Hierarchy=head(Hierarchy,-1)
   selectizeInput("Hierarchy","Tree Hierarchy",
                  choices = Hierarchy,multiple=T,selected = Hierarchy,
@@ -26,13 +26,13 @@ observeEvent(network$click,{
 
 
 TreeStruct=eventReactive(network$nodes,{
-  df=m
+  df=formulacion2018
   if(is.null(network$nodes)){
-    df=m
+    df=formulacion2018
   }else{
     
     x.filter=tree.filter(network$nodes,m)
-    df=ddply(x.filter,.(ID),function(a.x){m%>%filter_(.dots = list(a.x$FILTER))%>%distinct})
+    df=ddply(x.filter,.(ID),function(a.x){formulacion2018%>%filter_(.dots = list(a.x$FILTER))%>%distinct})
   }
   df
 })
@@ -40,9 +40,9 @@ TreeStruct=eventReactive(network$nodes,{
 observeEvent(input$Hierarchy,{
   output$d3 <- renderD3tree({
     if(is.null(input$Hierarchy)){
-      p <- m
+      p <- formulacion2018
     }else{
-      p=m%>%select(one_of(c(input$Hierarchy,"NEWCOL")))%>%unique
+      p=formulacion2018%>%select(one_of(c(input$Hierarchy,"NEWCOL")))%>%unique
       #p <- select_(m, c(input$Hierarchy),"NEWCOL") %>% distinct(.keep_all=TRUE)
     }
     
@@ -55,7 +55,7 @@ observeEvent(input$Hierarchy,{
 observeEvent(network$nodes,{
   output$results <- renderPrint({
     str.out=''
-    if(!is.null(network$nodes)) str.out=tree.filter(network$nodes,m)
+    if(!is.null(network$nodes)) str.out=tree.filter(network$nodes,formulacion2018)
     return(str.out)
   })    
 })
