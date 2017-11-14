@@ -61,5 +61,17 @@ observeEvent(network$nodes,{
 })
 
 output$table <- renderDataTable(expr = {
-  TreeStruct() %>% select(-NEWCOL)
+  datatable(TreeStruct() %>% select(-NEWCOL), extensions = c('Scroller','FixedColumns'),
+            options = list(dom='ft',
+                           pageLength = 20, 
+                           autoWidth = TRUE,
+                           deferRender = TRUE,
+                           scrollY = 650,
+                           scrollX = TRUE,
+                           fixedColumns = list(leftColumns = 1),
+                           scroller = TRUE,
+                           initComplete = JS("function(settings, json) {","$(this.api().table().header()).css({'background-color': '#99ccff', 'color': '#003366', 'font-size': '11px'});","}")), 
+            rownames = FALSE) %>%
+    formatStyle(0, target = 'row', fontSize = '60%', lineHeight = '80%')
 })
+
