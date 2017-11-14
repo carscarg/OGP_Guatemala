@@ -1,0 +1,3 @@
+## CARGA LIBRERIAS, INICIALIZA VARIABLES, CARGA DATOS, FUNCIONES, ETC.
+library(markdown)
+library(shiny)
