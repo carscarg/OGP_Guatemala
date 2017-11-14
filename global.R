@@ -14,7 +14,7 @@ library(d3Tree)
 source("funciones.R", local = TRUE)
 
 # Carga y preparado de datos
-formulacion2018 <- readRDS("C:/Users/wb493327/R_Projects/OGP_Guatemala/datos/formulacion2018.rds")
+formulacion2018 <- readRDS("datos/formulacion2018.rds")
 formulacion2018 <- prepararInput_d3Tree(formulacion2018)
 
 
