@@ -1,5 +1,6 @@
 ### UI General
 tagList(
+  shinythemes::themeSelector(), # Para ver tipos de CSS on the fly
 HTML("<link rel='stylesheet' href='css/style.css' media='screen'>"),
 HTML("<body style>"),
 HTML("<header id='header' class='container clearfix'>"),
@@ -41,6 +42,9 @@ navbarPage("",
                       ),
                       tabPanel("Presupuesto nacional",
                                source("ui/ui_Presupuesto.R", local = TRUE)$value
+                      ),
+                      tabPanel("Presupuesto Dashboard",
+                               source("ui/ui_Presupuesto_Dashboard.R", local = TRUE)$value
                       ),
                       tabPanel("Videoteca",
                                h3("Videoteca")
