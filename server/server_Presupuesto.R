@@ -46,7 +46,7 @@ observeEvent(input$Hierarchy,{
       #p <- select_(m, c(input$Hierarchy),"NEWCOL") %>% distinct(.keep_all=TRUE)
     }
     
-    d3tree(data = list(root = df2tree(struct = p,rootname = 'Presupuestos'), layout = 'collapse'),
+    d3tree(data = list(root = df2tree(struct = p,rootname = 'Presupuestos'), layout = 'collapse', linkLength=1000),
            activeReturn = c('name','value','depth','id'),
            height = 18)
   })

@@ -2,14 +2,16 @@
 
 fluidPage(
   fluidRow(
-    column(7,
+    column(12,
            uiOutput("Hierarchy"),
            #verbatimTextOutput("results"),
            #tableOutput("clickView"),
-           d3treeOutput(outputId="d3",width = '1200px',height = '800px')
+           d3treeOutput(outputId="d3",width = '100%',height = '600px')
     ),
-    column(5,
+  fluidRow(  
+    column(12,
            dataTableOutput('table')
+      )
     )
   )
 )

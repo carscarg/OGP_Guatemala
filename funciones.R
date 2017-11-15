@@ -19,6 +19,7 @@ prepararInput_d3Tree <- function(datos){
   datos <- mutate_all(datos, as.character) %>%
     mutate_all(function(x) ifelse(nchar(x)==0,"_",x)) %>% # there are empty categories that will crash d3Tree
     mutate_if(is.character, as.factor) %>%
+    mutate(monto = as.numeric(monto)) %>%
     mutate(NEWCOL=NA)
   
   return(datos)
