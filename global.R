@@ -9,6 +9,7 @@ library(DT)
 library(plyr)
 library(dplyr)
 library(d3Tree)
+library(slickR)
 
 # Declaro funciones
 source("funciones.R", local = TRUE)

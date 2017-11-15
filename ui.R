@@ -1,11 +1,17 @@
 ### UI General
-div('height'="30%",img(src = "logo.png", width = "425px", height = "79px"), br(), br(),
-
+tagList(
+HTML("<link rel='stylesheet' href='css/style.css' media='screen'>"),
+HTML("<body style>"),
+HTML("<header id='header' class='container clearfix'>"),
+img(src = "logo.png", width = "425px", height = "79px"), 
 navbarPage("",
            navbarMenu("Inicio",
                   tabPanel("¿Que es el OGP?",
                            h3("¿Que es el OGP?"),
-                           shiny::includeMarkdown("rmd/test.Rmd")
+                           HTML("<center>"),slickROutput("imginicio", width = "940px", height = "380px"),HTML("</center>"),
+                           br(), br(),
+                           includeHTML("html/slider.html")
+                          ## shiny::includeMarkdown("rmd/test.Rmd")
 
                     ),
                   tabPanel("Marco Jurídico",
@@ -46,7 +52,11 @@ navbarPage("",
                                 h3("Enlaces")
                        )
                       
-           )
+           
 
-)
+    ),
+HTML("</header>"),
+HTML("</body>")
+  )
+
 #source("ui/ui_ejes.R")
