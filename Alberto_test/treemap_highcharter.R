@@ -34,4 +34,7 @@ highchart() %>%
              Programa: {point.:,.0f}<br>
              Monto: {point.value:,.0f}")
 
+############# Nueva function hctreemap2
+#devtools::install_github("jbkunst/highcharter")
+#source("https://install-github.me/jbkunst/highcharter")
 
