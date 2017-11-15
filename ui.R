@@ -5,7 +5,8 @@ navbarPage("",
            navbarMenu("Inicio",
                   tabPanel("¿Que es el OGP?",
                            h3("¿Que es el OGP?"),
-                           shiny::includeMarkdown("rmd/test.Rmd")
+                           includeHTML("html/slider.html")
+                          ## shiny::includeMarkdown("rmd/test.Rmd")
 
                     ),
                   tabPanel("Marco Jurídico",
