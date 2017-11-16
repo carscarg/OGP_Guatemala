@@ -60,3 +60,18 @@ prepararInput_Sankey <- function(datos){
   
 }
 
+prepararInput_Treemap <- function(datos){
+  
+  datos_treemap <- dplyr::group_by(datos, Grupo.Gasto, Fuente.Financiamiento) %>%
+    dplyr::summarise(Monto = sum(Recomendado.2018, na.rm=TRUE)) %>%
+    ungroup() %>%
+    filter(Monto > 0) %>% 
+    as.data.frame()
+  
+  datos_treemap <- mutate_if(datos_treemap, is.factor,as.character) %>%
+    arrange(desc(Monto)) %>%
+    as.data.frame()
+  
+  return(datos_treemap)
+}
+

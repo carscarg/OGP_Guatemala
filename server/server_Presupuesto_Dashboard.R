@@ -1,64 +1,45 @@
 ## Server Presupuesto_Dashboard
 
 output$presupuesto_barras <- renderHighchart({
-      
-  datos_origen <- read.csv("datos/datos_prueba_shanky.csv")
   
-  datos_origen <- dplyr::group_by(datos_origen, Grupo.Gasto) %>%
-    dplyr::summarise(monto = sum(Recomendado.2018, na.rm=TRUE)) %>%
-    ungroup() %>%
-    filter(monto > 0) %>% 
-    as.data.frame()
-  
-  datos_origen <- mutate_if(datos_origen, is.factor,as.character) %>%
+  datos_treemap <- group_by_(datos_treemap, input$nivel) %>%
+    dplyr::summarise(Monto = sum(Monto, na.rm=TRUE)) %>%
+    arrange(desc(Monto)) %>%
     as.data.frame()
   
   hc <- highchart() %>% 
     hc_chart(type = "column") %>% 
-    hc_title(text = "A highcharter chart") %>% 
-    hc_xAxis(categories = datos_origen$Grupo.Gasto) %>% 
-    hc_add_series(data = datos_origen$monto,
+    hc_title(text = "Presupuesto por Grupo de Gasto") %>% 
+    hc_xAxis(categories = datos_treemap$Grupo.Gasto) %>% 
+    hc_add_series(data = datos_treemap$Monto,
                   colorByPoint = TRUE,
-                  name = "monto")
+                  name = "Monto")
       
 })
 
 output$presupuesto_tabla <- renderDataTable({
   
-  datos_origen <- read.csv("datos/datos_prueba_shanky.csv")
-  
-  datos_origen <- dplyr::group_by(datos_origen, Grupo.Gasto) %>%
-    dplyr::summarise(monto = sum(Recomendado.2018, na.rm=TRUE)) %>%
-    ungroup() %>%
-    filter(monto > 0) %>% 
+  datos_treemap <- group_by_(datos_treemap, input$nivel) %>%
+    dplyr::summarise(Monto = sum(Monto, na.rm=TRUE)) %>%
+    arrange(desc(Monto)) %>%
     as.data.frame()
   
-  datos_origen <- mutate_if(datos_origen, is.factor,as.character) %>%
-    arrange(desc(monto)) %>%
-    as.data.frame()
-  
-  datatable(datos_origen, options = list(dom="ft"), rownames = FALSE) %>%
-    formatCurrency(1) %>% 
-    formatStyle(0, fontSize = '80%')
+  datatable(datos_treemap, extensions="Scroller", style="bootstrap", class="compact", width="100%",
+            options=list(dom="ft",deferRender=TRUE, scroller=FALSE)) %>%
+    formatCurrency(c(2)) %>% 
+    formatStyle(c(0), target='row', fontSize = '80%')
   
 })
  
 output$presupuesto_treemap <- renderHighchart({
   
-  datos_origen <- read.csv("datos/datos_prueba_shanky.csv")
-  
-  datos_origen <- dplyr::group_by(datos_origen, Grupo.Gasto) %>%
-    dplyr::summarise(monto = sum(Recomendado.2018, na.rm=TRUE)) %>%
-    ungroup() %>%
-    filter(monto > 0) %>% 
+  datos_treemap <- group_by_(datos_treemap, input$nivel) %>%
+    dplyr::summarise(Monto = sum(Monto, na.rm=TRUE)) %>%
+    arrange(desc(Monto)) %>%
     as.data.frame()
   
-  datos_origen <- mutate_if(datos_origen, is.factor,as.character) %>%
-    arrange(desc(monto)) %>%
-    as.data.frame()
-  
-  tm <- treemap(datos_origen, index = c("Grupo.Gasto"),
-                vSize = "monto", vColor = "Grupo.Gasto",
+  tm <- treemap(datos_treemap, index = c(input$nivel),
+                vSize = "Monto", vColor = input$nivel,
                 type = "index",
                 draw = FALSE)
   
@@ -75,10 +56,7 @@ output$presupuesto_treemap <- renderHighchart({
 
 output$presupuesto_mapa <- renderSankeyNetwork({
   
-  datos_origen <- read.csv("datos/datos_prueba_shanky.csv")
-  datos <- prepararInput_Sankey(datos_origen)
-  
-  sankeyNetwork(Links = datos$datos, Nodes = datos$nodes, Source = "source",
+  sankeyNetwork(Links = datos_sankey$datos, Nodes = datos_sankey$nodes, Source = "source",
                 Target = "target", Value = "value", NodeID = "name",
                 units = "", fontSize = 12, nodeWidth = 30)
   
