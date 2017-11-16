@@ -1,47 +1,31 @@
 library(rpivotTable)
 library(shiny)
+library(dplyr)
 
 
-
-
-list_to_string <- function(obj, listname) {
-  if (is.null(names(obj))) {
-    paste(listname, "[[", seq_along(obj), "]] = ", obj,
-          sep = "", collapse = "\n")
-  } else {
-    paste(listname, "$", names(obj), " = ", obj,
-          sep = "", collapse = "\n")
-  }
-}
+tabla_cruda <- readRDS("formulacion2018.rds")
+df <- group_by(tabla_cruda,Entidad,Programa,Unidad.Ejecutora,Grupo.Gasto,Tipo.de.Gasto,Fuente.Financiamiento) %>% summarise(monto = sum(Recomendado.2018, na.rm=TRUE))
 
 server <- function(input, output) {
-  
-  output$pivotRefresh <- renderText({
-    
-    cnames <- list("cols","rows","vals", "exclusions","aggregatorName", "rendererName")
-    # Apply a function to all keys, to get corresponding values
-    allvalues <- lapply(cnames, function(name) {
-      item <- input$myPivotData[[name]]
-      if (is.list(item)) {
-        list_to_string(item, name)
-      } else {
-        paste(name, item, sep=" = ")
-      }
-    })
-    paste(allvalues, collapse = "\n")
-  })
+
+
   
   output$mypivot = renderRpivotTable({
-    rpivotTable(data=cars, onRefresh=htmlwidgets::JS("function(config) { Shiny.onInputChange('myPivotData', config); }"))
-  })
+    rpivotTable(data=df, onRefresh=htmlwidgets::JS("function(config) { Shiny.onInputChange('myPivotData', config); }"))
+  
+    })
+  output$quehay <- renderTable(as.tibble(str(input$myPivotData$cols)))
 }
 
 ui <- shinyUI(fluidPage(
- # HTML('<script type="text/javascript" src="https://www.google.com/jsapi"></script>'),
-  #htmlwidgets::JS('google.load("visualization", "1", {packages:["corechart", "charteditor"]});'),
   fluidRow(
-    column(6, rpivotTableOutput("mypivot") ))
+   
+    column(12, rpivotTableOutput("mypivot"))
+  ),
+  fluidRow(
+  column(12,tableOutput("quehay"))
+  
 )
-)
+))
 
 shinyApp(ui = ui, server = server) 

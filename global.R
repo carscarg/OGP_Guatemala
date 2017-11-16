@@ -21,8 +21,8 @@ source("funciones.R", local = TRUE)
 # Carga y preparado de datos ----------------------------
 
 # Todos los datos
-formulacion2018 <- readRDS("datos/formulacion2018.rds")
-formulacion2018 <- prepararInput_d3Tree(formulacion2018)
+tabla_cruda <- readRDS("datos/formulacion2018.rds")
+formulacion2018 <- prepararInput_d3Tree(tabla_cruda)
 
 # Subconjunto para probar visualizaciones
 datos_prueba <- read.csv("datos/datos_prueba_shanky.csv")
