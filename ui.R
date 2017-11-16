@@ -1,14 +1,15 @@
 ### UI General
 tagList(
-  shinythemes::themeSelector(), # Para ver tipos de CSS on the fly
+shinythemes::themeSelector(), # Para ver tipos de CSS on the fly
 HTML("<link rel='stylesheet' href='css/style.css' media='screen'>"),
-HTML("<body style>"),
+HTML("<title>Observatorio del Gasto Público</title>"),
+tags$style(type="text/css", ".navbar, .navbar-static-top, navbar-default {height: 110px;} ."),
 HTML("<header id='header' class='container clearfix'>"),
-#img(src = "logo.png", style="display:inline-block;",width = "425px", height = "79px"), 
+
 navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
-           navbarMenu("Inicio",
+           navbarMenu("Inicio", icon=icon("home", lib = "glyphicon"),
                   tabPanel("¿Que es el OGP?",
-                           h3("¿Que es el OGP?"),
+                           
                            HTML("<center>"),slickROutput("imginicio", width = "940px", height = "380px"),HTML("</center>"),
                            br(), br(),
                            includeHTML("html/slider.html")
@@ -23,7 +24,7 @@ navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
                            h3("¿Cómo funciona?")  
                            
                   )),
-           navbarMenu("Ejes",
+           navbarMenu("Ejes", icon=icon("stats", lib = "glyphicon"),
                     tabPanel("Salud",
                       h3("Salud")
                     ),
@@ -36,7 +37,7 @@ navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
                     tabPanel("Infraestructura",
                       h3("Infraestructura")
                   )),
-           navbarMenu("Infórmate",
+           navbarMenu("Infórmate", icon=icon("info-sign", lib = "glyphicon"),
                       tabPanel("Noticias",
                                plotOutput("Noticias")
                       ),
@@ -52,15 +53,14 @@ navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
                       tabPanel("Centro de documentación",
                                h3("Centro de Documentación")
                       )),
-           tabPanel("Enlaces",
+           tabPanel("Enlaces", icon=icon("link", lib = "glyphicon"),
                                 h3("Enlaces")
                        )
                       
            
 
     ),
-HTML("</header>"),
-HTML("</body>")
+HTML("</header>")
   )
 
 #source("ui/ui_ejes.R")
