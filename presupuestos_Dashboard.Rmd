@@ -1,10 +1,10 @@
 ---
 title: "Presupuestos"
-output: 
+output:
   flexdashboard::flex_dashboard:
-    orientation: rows
     horizontal_layout: fill
-runtime: shiny    
+    orientation: rows
+runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
@@ -22,6 +22,17 @@ Row {.sidebar data-width=200}
 
 ```{r}
 selectInput("nivel", "Seleccione nivel", choices = lista_niveles, selected = lista_niveles[1])
+
+# Descarga de Datos
+output$descarga_datos <- downloadHandler(
+  filename = 'datos_prueba_descarga.csv'
+  ,
+  content = function(file) {
+    write.csv(datos_prueba, file, row.names = FALSE)
+  }
+)
+
+downloadLink('descarga_datos', label = 'Descarga Datos (.csv)')
 
 ```
 

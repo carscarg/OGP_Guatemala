@@ -75,3 +75,18 @@ prepararInput_Treemap <- function(datos){
   return(datos_treemap)
 }
 
+generarReportePDF <- function(nivel){
+  
+  originalWd <- getwd()
+  setwd('./www/')
+  #file.remove("pdf_files/ABCDQ_Report.pdf")
+  knit2pdf('presupuestos_Dashboard_PDF.Rmd', clean = TRUE,
+           encoding = "UTF-8"
+           #output = paste0("Operations","_",gsub(" ","_",pm),"_",practiceCode,"_",fy,".tex"))
+           #output = "ABCDQ_Report.tex"
+           )
+  #file.copy("ABCDQ_Report.pdf", "pdf_files/",overwrite=TRUE)
+  #file.remove("ABCDQ_Report.pdf")
+  #file.remove("ABCDQ_Report.tex")
+  setwd(originalWd)
+}

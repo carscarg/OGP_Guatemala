@@ -1,0 +1,36 @@
+---
+title: "Presupuestos"
+output: 
+  pdf_document: 
+    keep_tex: yes
+  slidy_presentation: default
+always_allow_html: yes
+classoption: landscape
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+#library(shiny)
+#library(flexdashboard)
+#source("global.R")
+```
+
+### Desglose Presupuesto
+```{r}
+
+  # datos_treemap <- group_by_(datos_treemap, input$nivel) %>%
+  #   dplyr::summarise(Monto = sum(Monto, na.rm=TRUE)) %>%
+  #   arrange(desc(Monto)) %>%
+  #   as.data.frame()
+  # 
+  # highchart() %>% 
+  #   hc_chart(type = "column") %>% 
+  #   #hc_title(text = "Presupuesto por Grupo de Gasto") %>% 
+  #   hc_xAxis(categories = datos_treemap[,1]) %>% 
+  #   hc_add_series(data = datos_treemap$Monto,
+  #                 colorByPoint = TRUE,
+  #                 name = "Monto")
+
+plot(mtcars$mpg,mtcars$disp)
+      
+```

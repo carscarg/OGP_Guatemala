@@ -15,12 +15,21 @@ shinyServer(function(input, output, session) {
         slidesToScroll = 1,
         focusOnSelect = T,
         autoplay = T,
-        autoplaySpeed = 600,
+        autoplaySpeed = 800,
         dots = T
       ),
       height = 100,width='100%'
     )
     
+  })
+  
+  # Crear y descargar PDF
+  observeEvent(input$generarPDF,{
+    
+    #shinyjs::show(id="loadingPDF")
+    do.call(generarReportePDF, args = list(nivel = input$nivel))
+    #shinyjs::hide(id="loadingPDF")
+    #toggleModal(session, "modalPDF", "close")  
   })
   
   
