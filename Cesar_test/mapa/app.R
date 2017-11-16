@@ -6,6 +6,11 @@ library(leaflet)
 
 select <- dplyr::select
 
+ogrDrivers()
+dsn <- system.file("vectors", package = "rgdal")[1]
+ogrListLayers(dsn)
+ogrInfo(dsn)
+
 proveedor <- "Esri.WorldTopoMap"
 guate <- readOGR("Cesar_test/mapa/shapes/gt.shp",  encoding = "UTF-8")
 
