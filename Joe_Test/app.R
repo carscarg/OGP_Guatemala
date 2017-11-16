@@ -3,7 +3,7 @@ library(shiny)
 library(dplyr)
 library(highcharter)
 library(reshape2)
-
+#
 tabla_cruda <- readRDS("formulacion2018.rds")
 df <- group_by(tabla_cruda,Entidad,Programa,Unidad.Ejecutora,Grupo.Gasto,Tipo.de.Gasto,Fuente.Financiamiento) %>% summarise(monto = sum(Recomendado.2018, na.rm=TRUE))
 #datos <- group_by(df,Entidad) %>% summarise(monto = sum(monto))
