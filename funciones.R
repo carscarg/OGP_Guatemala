@@ -28,7 +28,7 @@ prepararInput_d3Tree <- function(datos){
 
 prepararInput_Sankey <- function(datos){
   
-  datos_origen <- group_by(datos_origen, Grupo.Gasto,Fuente.Financiamiento) %>%
+  datos_origen <- group_by(datos, Grupo.Gasto,Fuente.Financiamiento) %>%
     dplyr::summarise(monto = sum(Recomendado.2018, na.rm=TRUE)) %>%
     ungroup() %>%
     filter(monto > 0) %>% 
