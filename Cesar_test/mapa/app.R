@@ -4,12 +4,12 @@ library(shiny)
 library(rgdal)  
 library(leaflet)
 
-select <-dplyr::select
+select <- dplyr::select
 
 proveedor <- "Esri.WorldTopoMap"
-guate <- readOGR("shapes/gt.shp",  encoding = "UTF-8")
+guate <- readOGR("Cesar_test/mapa/shapes/gt.shp",  encoding = "UTF-8")
 
-gdp = fread("munis2017.csv", sep = ',', na.strings = "",header = T, stringsAsFactors = T)
+gdp = fread("Cesar_test/mapa/munis2017.csv", sep = ',', na.strings = "",header = T, stringsAsFactors = T)
 gdp = gdp[rowSums(is.na(gdp)) != ncol(gdp),] %>% as.data.frame()
 
 categorias <- levels(gdp$Clase)
