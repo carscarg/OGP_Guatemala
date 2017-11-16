@@ -14,8 +14,10 @@ server <- function(input, output) {
     #cadena <- paste0(input$myPivotData$rows[[1]],input$myPivotData$cols[[1]],sep =",")
     
     datos <- group_by_(df,input$myPivotData$rows[[1]],input$myPivotData$cols[[1]]) %>% summarise(monto = sum(monto))
-    datos <-spread_(data = datos,key = input$myPivotData$cols[[1]],value = "monto")
     
+    if (is.null(input$myPivotData$cols[[1]])==FALSE){
+    datos <-spread_(data = datos,key = input$myPivotData$cols[[1]],value = "monto")
+    }
     datatable(datos, extensions="Scroller", style="bootstrap", class="compact", width="100%",
               options=list(dom="ft",deferRender=TRUE, scroller=FALSE)) %>%
       formatCurrency(c(2)) %>% 
