@@ -8,6 +8,7 @@ HTML("<header id='header' class='container clearfix'>"),
 
 navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
            navbarMenu("Inicio", icon=icon("home", lib = "glyphicon"),
+
                   tabPanel("¿Que es el OGP?",
                            
                            HTML("<center>"),slickROutput("imginicio", width = "940px", height = "380px"),HTML("</center>"),
@@ -42,10 +43,10 @@ navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
                                plotOutput("Noticias")
                       ),
                       tabPanel("Presupuesto nacional",
-                               source("ui/ui_Presupuesto.R", local = TRUE)$value
-                      ),
-                      tabPanel("Presupuesto Dashboard",
                                source("ui/ui_Presupuesto_Dashboard.R", local = TRUE)$value
+                      ),
+                      tabPanel("Presupuesto Dashboard"
+                               
                       ),
                       tabPanel("Videoteca",
                                h3("Videoteca")

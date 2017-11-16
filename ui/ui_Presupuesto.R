@@ -6,11 +6,11 @@ fluidPage(
            uiOutput("Hierarchy"),
            #verbatimTextOutput("results"),
            #tableOutput("clickView"),
-           d3treeOutput(outputId="d3",width = '100%',height = '600px')
+           d3treeOutput("d3",width = '100%',height = '600px')
     ),
   fluidRow(  
     column(6,
-           dataTableOutput('table')
+           dataTableOutput('tableTree')
       )
     )
   )
