@@ -32,8 +32,8 @@ tabsetPanel(selected = "Viz1",
                            ), height = '80%')
                        )
                      ),
-            tabPanel("Viz2"
-                     
+            tabPanel("pivot",
+                     source("ui/ui_pivot.R", local = TRUE)$value
             ),
             tabPanel("Viz3"
                      ),

@@ -6,15 +6,15 @@ library(leaflet)
 
 select <- dplyr::select
 
-ogrDrivers()
-dsn <- system.file("vectors", package = "rgdal")[1]
-ogrListLayers(dsn)
-ogrInfo(dsn)
+# ogrDrivers()
+# dsn <- system.file("vectors", package = "rgdal")[1]
+# ogrListLayers(dsn)
+# ogrInfo(dsn)
 
 proveedor <- "Esri.WorldTopoMap"
-guate <- readOGR("Cesar_test/mapa/shapes/gt.shp",  encoding = "UTF-8")
+guate <- readOGR("shapes/gt.shp",  encoding = "UTF-8")
 
-gdp = fread("Cesar_test/mapa/munis2017.csv", sep = ',', na.strings = "",header = T, stringsAsFactors = T)
+gdp = fread("munis2017.csv", sep = ',', na.strings = "",header = T, stringsAsFactors = T)
 gdp = gdp[rowSums(is.na(gdp)) != ncol(gdp),] %>% as.data.frame()
 
 categorias <- levels(gdp$Clase)
