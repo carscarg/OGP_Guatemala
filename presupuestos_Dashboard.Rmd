@@ -1,5 +1,35 @@
-## Server Presupuesto_Dashboard
-#library(plyr)
+---
+title: "Presupuestos"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    horizontal_layout: fill
+runtime: shiny    
+---
+
+```{r setup, include=FALSE}
+library(shiny)
+library(flexdashboard)
+source("global.R")
+
+```
+
+Desglose Presupuesto
+============================================
+
+Row {.sidebar data-width=200}
+----------------------------------
+
+```{r}
+selectInput("nivel", "Seleccione nivel", choices = lista_niveles, selected = lista_niveles[1])
+
+```
+
+Row 
+-----------------------------------------------------------------------
+### Desglose Presupuesto
+```{r}
+highchartOutput('presupuesto_barras')
 
 output$presupuesto_barras <- renderHighchart({
   
@@ -10,13 +40,20 @@ output$presupuesto_barras <- renderHighchart({
   
   hc <- highchart() %>% 
     hc_chart(type = "column") %>% 
-    hc_title(text = "Presupuesto por Grupo de Gasto") %>% 
-    hc_xAxis(categories = datos_treemap$Grupo.Gasto) %>% 
+    #hc_title(text = "Presupuesto por Grupo de Gasto") %>% 
+    hc_xAxis(categories = datos_treemap[,1]) %>% 
     hc_add_series(data = datos_treemap$Monto,
                   colorByPoint = TRUE,
                   name = "Monto")
       
 })
+
+
+```
+
+### Desglose Presupuesto
+```{r}
+dataTableOutput('presupuesto_tabla')
 
 output$presupuesto_tabla <- renderDataTable({
   
@@ -26,12 +63,21 @@ output$presupuesto_tabla <- renderDataTable({
     as.data.frame()
   
   datatable(datos_treemap, extensions="Scroller", style="bootstrap", class="compact", width="100%",
-            options=list(dom="ft",deferRender=TRUE, scroller=FALSE)) %>%
+            options=list(dom="t",deferRender=TRUE, scroller=FALSE)) %>%
     formatCurrency(c(2)) %>% 
     formatStyle(c(0), target='row', fontSize = '80%')
   
 })
- 
+
+```
+
+Row 
+-----------------------------------------------------------------------
+
+### Desglose Presupuesto
+```{r}
+highchartOutput('presupuesto_treemap')
+
 output$presupuesto_treemap <- renderHighchart({
   
   datos_treemap <- group_by_(datos_treemap, input$nivel) %>%
@@ -46,8 +92,7 @@ output$presupuesto_treemap <- renderHighchart({
   
   highchart() %>% 
     hc_add_series_treemap(tm, allowDrillToNode = TRUE,
-                          layoutAlgorithm = "squarified",
-                          name = "Presupuestos") %>% 
+                          layoutAlgorithm = "squarified") %>% 
     hc_title(text = "Presupuestos") %>% 
     hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
                Programa: {point.:,.0f}<br>
@@ -55,11 +100,23 @@ output$presupuesto_treemap <- renderHighchart({
   
 })
 
+```
+
+Origen y Destino Gastos
+============================================
+
+Row
+------------------------------------------
+
+### Origen y Destino Gastos
+```{r}
+sankeyNetworkOutput('presupuesto_mapa')
+
 output$presupuesto_mapa <- renderSankeyNetwork({
   
   sankeyNetwork(Links = datos_sankey$datos, Nodes = datos_sankey$nodes, Source = "source",
                 Target = "target", Value = "value", NodeID = "name",
-                units = "", fontSize = 9, nodeWidth = 30, sinksRight = FALSE)
+                units = "$", fontSize = 12, nodeWidth = 30, sinksRight = TRUE)
   
 })
-
+```

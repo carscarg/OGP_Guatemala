@@ -36,9 +36,10 @@ tabsetPanel(selected = "Viz1",
             tabPanel("Viz3"
                      ),
             tabPanel("Avanzado"
+                     
                      ),
-            tabPanel("Navegador"
-            
+            tabPanel("Navegador",
+                     source("ui/ui_Presupuesto.R", local = TRUE)$value
                      )
 )
 
