@@ -41,7 +41,7 @@ server <- function(input, output) {
     rpivotTable(data=df, rows="Entidad",col ="Tipo.de.Gasto",onRefresh=htmlwidgets::JS("function(config) { Shiny.onInputChange('myPivotData', config); }"))
   
     })
-  output$quehay <- renderTable(as.tibble(str(input$myPivotData$rows)))
+  output$quehay <- renderTable(as.tibble(str(input$myPivotData$cols)))
 }
 
 ui <- shinyUI(fluidPage(
