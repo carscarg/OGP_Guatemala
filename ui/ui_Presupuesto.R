@@ -10,7 +10,7 @@ fluidPage(
     ),
   fluidRow(  
     column(6,
-           dataTableOutput('table')
+           dataTableOutput('tableTree')
       )
     )
   )

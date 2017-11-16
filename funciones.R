@@ -12,7 +12,7 @@ prepararInput_d3Tree <- function(datos){
   names(datos) <- gsub(" ","_",names(datos),fixed = TRUE)
   
   datos <- group_by(datos, Entidad, Programa, Unidad_Ejecutora) %>%
-    summarise(monto = sum(Recomendado_2018, na.rm = TRUE)) %>%
+    dplyr::summarise(monto = sum(Recomendado_2018, na.rm = TRUE)) %>%
     distinct(.keep_all=TRUE) %>%
     as.data.frame()
   

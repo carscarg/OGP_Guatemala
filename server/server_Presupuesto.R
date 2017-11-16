@@ -60,7 +60,7 @@ observeEvent(network$nodes,{
   })    
 })
 
-output$table <- renderDataTable(expr = {
+output$tableTree <- renderDataTable(expr = {
   datatable(TreeStruct() %>% select(-NEWCOL), extensions = c('Scroller','FixedColumns'),
             options = list(dom='ft',
                            pageLength = 20, 

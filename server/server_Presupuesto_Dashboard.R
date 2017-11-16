@@ -1,4 +1,5 @@
 ## Server Presupuesto_Dashboard
+library(plyr)
 
 output$presupuesto_barras <- renderHighchart({
   
@@ -58,7 +59,7 @@ output$presupuesto_mapa <- renderSankeyNetwork({
   
   sankeyNetwork(Links = datos_sankey$datos, Nodes = datos_sankey$nodes, Source = "source",
                 Target = "target", Value = "value", NodeID = "name",
-                units = "", fontSize = 12, nodeWidth = 30)
+                units = "", fontSize = 9, nodeWidth = 30, sinksRight = FALSE)
   
 })
 

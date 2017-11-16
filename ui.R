@@ -5,7 +5,7 @@ HTML("<link rel='stylesheet' href='css/style.css' media='screen'>"),
 HTML("<body style>"),
 HTML("<header id='header' class='container clearfix'>"),
 #img(src = "logo.png", style="display:inline-block;",width = "425px", height = "79px"), 
-navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
+navbarPage("",title = img(src = "logo.png",width = "250px", height = "40px"),  
            navbarMenu("Inicio",
                   tabPanel("¿Que es el OGP?",
                            h3("¿Que es el OGP?"),
@@ -41,10 +41,10 @@ navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
                                plotOutput("Noticias")
                       ),
                       tabPanel("Presupuesto nacional",
-                               source("ui/ui_Presupuesto.R", local = TRUE)$value
-                      ),
-                      tabPanel("Presupuesto Dashboard",
                                source("ui/ui_Presupuesto_Dashboard.R", local = TRUE)$value
+                      ),
+                      tabPanel("Presupuesto Dashboard"
+                               
                       ),
                       tabPanel("Videoteca",
                                h3("Videoteca")
