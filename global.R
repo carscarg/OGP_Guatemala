@@ -14,6 +14,7 @@ library(slickR)
 library(highcharter)
 library(treemap)
 library(networkD3)
+library(knitr)
 
 # Declaro funciones ------------------------------
 source("funciones.R", local = TRUE)

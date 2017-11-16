@@ -23,5 +23,14 @@ shinyServer(function(input, output, session) {
     
   })
   
+  # Crear y descargar PDF
+  observeEvent(input$generarPDF,{
+    
+    #shinyjs::show(id="loadingPDF")
+    do.call(generarReportePDF, args = list(nivel = input$nivel))
+    #shinyjs::hide(id="loadingPDF")
+    #toggleModal(session, "modalPDF", "close")  
+  })
+  
   
 })

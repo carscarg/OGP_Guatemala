@@ -8,7 +8,9 @@ tabsetPanel(selected = "Viz1",
                                      tags$style(type='text/css', ".selectize-input { font-size: 80%; line-height: 10px; width: 95%; min-height: 25px; max-height: 30px} .selectize-dropdown { font-size: 80%; line-height: 15px; }"), 
                                      #tags$style(type='text/css', ".selectize-input { font-size: 90%; line-height: 15px;} .selectize-dropdown { font-size: 90%; line-height: 15px; }"),
                                      div(selectInput("nivel", "Seleccione nivel", choices = lista_niveles, selected = lista_niveles[1]),style = "padding-left: 5px;"),
-                                     br()
+                                     br(),
+                                     actionButton("generarPDF","Crea un PDF"),
+                                     uiOutput("previewPDF")
                        ),
                        div(
                          fluidRow(
