@@ -1,10 +1,11 @@
 ### UI General
 tagList(
+  shinythemes::themeSelector(), # Para ver tipos de CSS on the fly
 HTML("<link rel='stylesheet' href='css/style.css' media='screen'>"),
 HTML("<body style>"),
 HTML("<header id='header' class='container clearfix'>"),
-img(src = "logo.png", width = "425px", height = "79px"), 
-navbarPage("",
+#img(src = "logo.png", style="display:inline-block;",width = "425px", height = "79px"), 
+navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
            navbarMenu("Inicio",
                   tabPanel("¿Que es el OGP?",
                            h3("¿Que es el OGP?"),
@@ -41,6 +42,9 @@ navbarPage("",
                       ),
                       tabPanel("Presupuesto nacional",
                                source("ui/ui_Presupuesto.R", local = TRUE)$value
+                      ),
+                      tabPanel("Presupuesto Dashboard",
+                               source("ui/ui_Presupuesto_Dashboard.R", local = TRUE)$value
                       ),
                       tabPanel("Videoteca",
                                h3("Videoteca")
