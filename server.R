@@ -15,7 +15,7 @@ shinyServer(function(input, output, session) {
         slidesToScroll = 1,
         focusOnSelect = T,
         autoplay = T,
-        autoplaySpeed = 600,
+        autoplaySpeed = 800,
         dots = T
       ),
       height = 100,width='100%'
