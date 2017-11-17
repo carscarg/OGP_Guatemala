@@ -15,6 +15,11 @@ library(highcharter)
 library(treemap)
 library(networkD3)
 library(knitr)
+library(rpivotTable)
+library(reshape2)
+
+# fuerzo summarise de dplyr
+summarise <- dplyr::summarise
 
 # Declaro funciones ------------------------------
 source("funciones.R", local = TRUE)
@@ -22,8 +27,8 @@ source("funciones.R", local = TRUE)
 # Carga y preparado de datos ----------------------------
 
 # Todos los datos
-formulacion2018 <- readRDS("datos/formulacion2018.rds")
-formulacion2018 <- prepararInput_d3Tree(formulacion2018)
+tabla_cruda <- readRDS("datos/formulacion2018.rds")
+formulacion2018 <- prepararInput_d3Tree(tabla_cruda)
 
 # Subconjunto para probar visualizaciones
 datos_prueba <- read.csv("datos/datos_prueba_shanky.csv")
@@ -33,6 +38,10 @@ datos_treemap <- prepararInput_Treemap(datos_prueba)
 # listas de elementos para selectores
 lista_niveles <- names(select_if(datos_prueba, is.factor))
 
+
+# agrupa la tabla cruda en algunas variables principales, para uso en pivot
+df <- group_by(tabla_cruda,Entidad,Programa,Unidad.Ejecutora,Grupo.Gasto,Tipo.de.Gasto,Fuente.Financiamiento) %>% 
+  dplyr::summarise(monto = sum(Recomendado.2018, na.rm=TRUE))
 
 
 
