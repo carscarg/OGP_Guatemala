@@ -3,31 +3,40 @@ title: "Presupuestos"
 output: 
   pdf_document: default
 always_allow_html: yes
+params: nivel
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, results = "asis")
 #library(shiny)
 #library(flexdashboard)
+#setwd("../")
 #source("global.R")
+
 ```
+
+Desglose Presupuesto
+============================================
 
 ### Desglose Presupuesto
 ```{r}
 
-  # datos_treemap <- group_by_(datos_treemap, input$nivel) %>%
-  #   dplyr::summarise(Monto = sum(Monto, na.rm=TRUE)) %>%
-  #   arrange(desc(Monto)) %>%
-  #   as.data.frame()
-  # 
-  # highchart() %>% 
-  #   hc_chart(type = "column") %>% 
-  #   #hc_title(text = "Presupuesto por Grupo de Gasto") %>% 
-  #   hc_xAxis(categories = datos_treemap[,1]) %>% 
+  datos_treemap <- group_by_(datos_treemap, params$nivel) %>%
+    dplyr::summarise(Monto = sum(Monto, na.rm=TRUE)) %>%
+    arrange(desc(Monto)) %>%
+    as.data.frame()
+
+  plot(datos_treemap$Monto)
+  
+  # highchart() %>%
+  #   hc_chart(type = "column") %>%
+  #   #hc_title(text = "Presupuesto por Grupo de Gasto") %>%
+  #   hc_xAxis(categories = datos_treemap[,1]) %>%
   #   hc_add_series(data = datos_treemap$Monto,
   #                 colorByPoint = TRUE,
   #                 name = "Monto")
 
-plot(mtcars$mpg,mtcars$disp)
-      
+
+
 ```
+

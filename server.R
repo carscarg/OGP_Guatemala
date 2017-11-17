@@ -24,13 +24,39 @@ shinyServer(function(input, output, session) {
   })
   
   # Crear y descargar PDF
-  observeEvent(input$generarPDF,{
+  # observeEvent(input$generarPDF,{
+  #   
+  #   #shinyjs::show(id="loadingPDF")
+  #   do.call(generarReportePDF, args = list(nivel = input$nivel))
+  #   #shinyjs::hide(id="loadingPDF")
+  #   #toggleModal(session, "modalPDF", "close")  
+  # })
+  
+  
+  output$descargaReporte <- downloadHandler(
+    filename = function() {
+      paste('my-report', sep = '.', switch(
+        input$formato, PDF = 'pdf', HTML = 'html', Word = 'docx'
+      ))
+    },
     
-    #shinyjs::show(id="loadingPDF")
-    do.call(generarReportePDF, args = list(nivel = input$nivel))
-    #shinyjs::hide(id="loadingPDF")
-    #toggleModal(session, "modalPDF", "close")  
-  })
+    content = function(file) {
+      src <- normalizePath('www/presupuestos_Dashboard_PDF.Rmd')
+      
+      # temporarily switch to the temp dir, in case you do not have write
+      # permission to the current working directory
+      owd <- setwd(tempdir())
+      on.exit(setwd(owd))
+      file.copy(src, 'presupuestos_Dashboard_PDF.Rmd', overwrite = TRUE)
+      
+      library(rmarkdown)
+      out <- render('presupuestos_Dashboard_PDF.Rmd', switch(
+        input$formato,
+        PDF = pdf_document(), HTML = html_document(), Word = word_document()
+      ))
+      file.rename(out, file)
+    }
+  )
   
   
 })

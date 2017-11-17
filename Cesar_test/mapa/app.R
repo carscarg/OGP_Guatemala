@@ -12,7 +12,7 @@ ogrListLayers(dsn)
 ogrInfo(dsn)
 
 proveedor <- "Esri.WorldTopoMap"
-guate <- readOGR("Cesar_test/mapa/shapes/gt.shp",  encoding = "UTF-8")
+guate <- readOGR(dsn = path.expand("Cesar_test/mapa/shapes/gt.shp"), layer = "gt")
 
 gdp = fread("Cesar_test/mapa/munis2017.csv", sep = ',', na.strings = "",header = T, stringsAsFactors = T)
 gdp = gdp[rowSums(is.na(gdp)) != ncol(gdp),] %>% as.data.frame()

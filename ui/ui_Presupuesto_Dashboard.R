@@ -6,11 +6,12 @@ tabsetPanel(selected = "Viz1",
                        absolutePanel(id='parametros', class = "panel panel-default", fixed = TRUE, draggable = TRUE, top = 200,
                                      left = "auto", right = 50, bottom = "auto", width = 150, height = "100%",
                                      tags$style(type='text/css', ".selectize-input { font-size: 80%; line-height: 10px; width: 95%; min-height: 25px; max-height: 30px} .selectize-dropdown { font-size: 80%; line-height: 15px; }"), 
-                                     #tags$style(type='text/css', ".selectize-input { font-size: 90%; line-height: 15px;} .selectize-dropdown { font-size: 90%; line-height: 15px; }"),
                                      div(selectInput("nivel", "Seleccione nivel", choices = lista_niveles, selected = lista_niveles[1]),style = "padding-left: 5px;"),
                                      br(),
-                                     actionButton("generarPDF","Crea un PDF"),
-                                     uiOutput("previewPDF")
+                                     radioButtons('formato', 'Descarga un reporte en formato:', c('PDF', 'HTML', 'Word'),
+                                                  inline = FALSE),
+                                     downloadButton('descargaReporte')
+                                     
                        ),
                        div(
                          fluidRow(
