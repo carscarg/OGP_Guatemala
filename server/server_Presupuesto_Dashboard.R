@@ -1,5 +1,6 @@
 ## Server Presupuesto_Dashboard
-#library(plyr)
+
+## Creacion de objetos output --------------------------------
 
 output$presupuesto_barras <- renderHighchart({
   
@@ -63,3 +64,45 @@ output$presupuesto_mapa <- renderSankeyNetwork({
   
 })
 
+## Descarga de datos y reportes --------------------------------
+
+# Descarga de Datos
+output$descarga_datos <- downloadHandler(
+  filename = 'datos_prueba_descarga.csv',
+  content = function(file) {
+    write.csv(datos_prueba, file, row.names = FALSE)
+  }
+)
+
+# Crear y descargar reporte en diferentes formatos. IMPORTANTE: Require paquete webshot! 
+output$descargaReporte <- downloadHandler(
+  filename = function() {
+    paste('my-report', sep = '.', switch(
+      input$formato, PDF = 'pdf', HTML = 'html', Word = 'docx'
+    ))
+  },
+  
+  content = function(file) {
+    src <- normalizePath('www/presupuestos_Dashboard_PDF.Rmd')
+    
+    # temporarily switch to the temp dir, in case you do not have write
+    # permission to the current working directory
+    owd <- setwd(tempdir())
+    on.exit(setwd(owd))
+    file.copy(src, 'presupuestos_Dashboard_PDF.Rmd', overwrite = TRUE)
+    
+    library(rmarkdown)
+    out <- render('presupuestos_Dashboard_PDF.Rmd', switch(
+      input$formato,
+      PDF = pdf_document(), HTML = html_document(), Word = word_document()
+    )#, envir = .GlobalEnv)
+    )
+    file.rename(out, file)
+  }
+)
+
+# Renderiza flexdashboard
+output$presupuesto_flexdashboard <- renderUI({
+  
+  render("presupuestos_Dashboard.Rmd")
+})

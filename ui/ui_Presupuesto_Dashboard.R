@@ -1,7 +1,7 @@
 ## UI presupuesto Dashboard
 
-tabsetPanel(selected = "Viz1",
-            tabPanel("Viz1",
+tabsetPanel(selected = "Dashboard",
+            tabPanel("Dashboard",
                      fluidPage(
                        absolutePanel(id='parametros', class = "panel panel-default", fixed = TRUE, draggable = TRUE, top = 200,
                                      left = "auto", right = 50, bottom = "auto", width = 150, height = "100%",
@@ -10,7 +10,11 @@ tabsetPanel(selected = "Viz1",
                                      br(),
                                      radioButtons('formato', 'Descarga un reporte en formato:', c('PDF', 'HTML', 'Word'),
                                                   inline = FALSE),
-                                     downloadButton('descargaReporte')
+                                     downloadButton('descargaReporte',label = 'Descargar'),
+                                     br(),
+                                     br(),
+                                     h5("Descarga los datos en formato .csv:"),
+                                     downloadButton('descarga_datos', label = 'Descargar')
                                      
                        ),
                        div(
@@ -36,7 +40,8 @@ tabsetPanel(selected = "Viz1",
             tabPanel("pivot",
                      source("ui/ui_pivot.R", local = TRUE)$value
             ),
-            tabPanel("Viz3"
+            tabPanel("Flexdashboard",
+                     uiOutput('presupuesto_flexdashboard')
                      ),
             tabPanel("Avanzado"
                      

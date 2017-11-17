@@ -45,9 +45,6 @@ navbarPage("",title = img(src = "logo.png", width = "425px", height = "79px"),
                       tabPanel("Presupuesto nacional",
                                source("ui/ui_Presupuesto_Dashboard.R", local = TRUE)$value
                       ),
-                      tabPanel("Presupuesto Dashboard"
-                               
-                      ),
                       tabPanel("Videoteca",
                                h3("Videoteca")
                       ),
