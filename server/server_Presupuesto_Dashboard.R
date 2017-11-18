@@ -103,6 +103,16 @@ output$descargaReporte <- downloadHandler(
 
 # Renderiza flexdashboard
 output$presupuesto_flexdashboard <- renderUI({
-  
-  render("presupuestos_Dashboard.Rmd")
+  HTML(markdown::markdownToHTML(knit("www/presupuestos_Dashboard_PDF.Rmd")))
+  #rmarkdown::run("presupuestos_Dashboard.Rmd")
 })
+
+# Abre flexdashboard en nueva ventana
+observeEvent(input$abrir_flexdashboard, {
+  renderUI({
+    a(href="presupuestos_Dashboard_PDF.Rmd", target="_blank")
+  })
+})
+
+
+

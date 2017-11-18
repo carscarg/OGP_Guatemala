@@ -41,13 +41,14 @@ tabsetPanel(selected = "Dashboard",
                      source("ui/ui_pivot.R", local = TRUE)$value
             ),
             tabPanel("Flexdashboard",
-                     uiOutput('presupuesto_flexdashboard')
+                     h5("Una vez desplegado en el shiny-server, un fichero .Rmd se puede llamar en un navegador con este link:
+                        http://server.host/OGP_Guatemala/presupuestos_Dashboard.Rmd
+                        Reemplazar 'server.host' por el raiz real del host y el nombre del fichero .Rmd que se quiera ejecutar. En este caso tiene que ser un flexdashboard.")
+                     #div(a("Abrir Flexdashboard",href = 'http://server.host/OGP_Guatemala/presupuestos_Dashboard.Rmd', class = "btn btn-default"))
+                     #uiOutput('presupuesto_flexdashboard')
                      ),
-            tabPanel("Avanzado"
-                     
-                     ),
-            tabPanel("Navegador",
-                     source("ui/ui_Presupuesto.R", local = TRUE)$value
+            tabPanel("Navegador Arbol",
+                     source("ui/ui_d3Tree.R", local = TRUE)$value
                      )
 )
 
