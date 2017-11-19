@@ -2,9 +2,9 @@
 
 #SearchTree----
 
-output$Hierarchy <- renderUI({
-  Hierarchy=names(formulacion2018)
-  Hierarchy=head(Hierarchy,-1)
+output$d3Tree_variables <- renderUI({
+  Hierarchy<-names(formulacion2018)
+  Hierarchy<-head(Hierarchy,-1)
   selectizeInput("Hierarchy","Tree Hierarchy",
                  choices = Hierarchy,multiple=T,selected = Hierarchy,
                  options=list(plugins=list('drag_drop','remove_button')))
@@ -19,48 +19,46 @@ observeEvent(input$d3_update,{
 })
 
 observeEvent(network$click,{
-  output$clickView<-renderTable({
+  output$d3Tree_vista_click<-renderTable({
     as.data.frame(network$click)},
     caption='Last Clicked Node',caption.placement='top')
 })
 
 
-TreeStruct=eventReactive(network$nodes,{
-  df=formulacion2018
+TreeStruct <- eventReactive(network$nodes,{
+  df<-formulacion2018
   if(is.null(network$nodes)){
-    df=formulacion2018
+    df<-formulacion2018
   }else{
-    
-    x.filter=tree.filter(network$nodes,m)
-    df=ddply(x.filter,.(ID),function(a.x){formulacion2018%>%filter_(.dots = list(a.x$FILTER))%>%distinct})
+    x.filter<-tree.filter(network$nodes,m)
+    df<-ddply(x.filter,.(ID),function(a.x){formulacion2018 %>% filter_(.dots = list(a.x$FILTER)) %>% distinct})
   }
   df
 })
 
 observeEvent(input$Hierarchy,{
-  output$d3 <- renderD3tree({
+  output$d3Tree_arbol <- renderD3tree({
     if(is.null(input$Hierarchy)){
       p <- formulacion2018
     }else{
-      p=formulacion2018%>%select(one_of(c(input$Hierarchy,"NEWCOL")))%>%unique
+      p <- formulacion2018 %>% select(one_of(c(input$Hierarchy,"NEWCOL"))) %>% unique
       #p <- select_(m, c(input$Hierarchy),"NEWCOL") %>% distinct(.keep_all=TRUE)
     }
-    
-    d3tree(data = list(root = df2tree(struct = p,rootname = 'Presupuestos'), layout = 'collapse', linkLength=1000),
+    d3tree(data = list(root = df2tree(struct = p,rootname = 'Presupuestos'), layout = 'collapse'),
            activeReturn = c('name','value','depth','id'),
            height = 18)
   })
 })
 
 observeEvent(network$nodes,{
-  output$results <- renderPrint({
+  output$d3Tree_resultado <- renderPrint({
     str.out=''
-    if(!is.null(network$nodes)) str.out=tree.filter(network$nodes,formulacion2018)
+    if(!is.null(network$nodes)) str.out <- tree.filter(network$nodes,formulacion2018)
     return(str.out)
   })    
 })
 
-output$tableTree <- renderDataTable(expr = {
+output$d3Tree_tabla <- renderDataTable(expr = {
   datatable(TreeStruct() %>% select(-NEWCOL), extensions = c('Scroller','FixedColumns'),
             options = list(dom='ft',
                            pageLength = 20, 
@@ -74,4 +72,6 @@ output$tableTree <- renderDataTable(expr = {
             rownames = FALSE) %>%
     formatStyle(0, target = 'row', fontSize = '60%', lineHeight = '80%')
 })
+
+output$outVariables <- renderText(input$d3Tree_variables)
 

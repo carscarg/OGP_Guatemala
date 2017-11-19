@@ -1,14 +1,14 @@
 ## CARGA LIBRERIAS, INICIALIZA VARIABLES, CARGA DATOS, FUNCIONES, ETC.
 
 # Cargo librerias --------------------------------
-library(markdown)
-library(shiny)
+#library(markdown)
 library(reshape2)
+library(shiny)
 library(stringr)
 library(DT)
-library(plyr)
-library(dplyr)
-#library(tidyverse)
+#library(plyr)
+#library(dplyr)
+library(tidyverse)
 library(d3Tree)
 library(slickR)
 library(highcharter)
@@ -16,7 +16,6 @@ library(treemap)
 library(networkD3)
 library(knitr)
 library(rpivotTable)
-library(reshape2)
 library(data.table)
 
 # fuerzo summarise de dplyr
@@ -29,7 +28,9 @@ source("funciones.R", local = TRUE)
 
 # Todos los datos
 tabla_cruda <- readRDS("datos/formulacion2018.rds")
-formulacion2018 <- prepararInput_d3Tree(tabla_cruda)
+formulacion2018 <- prepararInput_d3Tree(tabla_cruda) %>% 
+  mutate_if(is.factor, as.character) %>%
+  as.data.frame()
 
 # Subconjunto para probar visualizaciones
 datos_dashboard <- read.csv("datos/datos_prueba_shanky.csv")

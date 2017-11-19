@@ -1,0 +1,28 @@
+---
+title: "OGP_Guatemala"
+author: "Cesar Ramirez, Joseph Cole, Alberto Sanchez"
+date: "11/18/2017"
+output: html_document
+---
+
+OGP_Guatemala es un site creado en R Shiny destinado a ser pubicado en un shiny-server que presenta tablas y analiticas para explorar y entender como el Ministerio de Finanzas distribuye el presupuesto.
+
+Aqui se describe el proyecto a nivel tecnico, estructura de la aplicacion y despliegue.
+
+# Datos e infraestructura
+
+
+# Despliegue de la aplicacion
+
+
+# Control de versiones y colaboracion
+
+
+# Estructura de la app
+
+
+
+
+
+
+

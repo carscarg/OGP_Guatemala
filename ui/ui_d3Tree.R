@@ -3,15 +3,14 @@
 fluidPage(
   fluidRow(
     column(6,
-           uiOutput("Hierarchy"),
-           #verbatimTextOutput("results"),
-           #tableOutput("clickView"),
-           d3treeOutput("d3",width = '100%',height = '600px')
+           uiOutput("d3Tree_variables"),
+           textOutput('outVariables'),
+           verbatimTextOutput("d3Tree_resultado"),
+           tableOutput("d3Tree_vista_click"),
+           d3treeOutput("d3Tree_arbol",width = '100%',height = '600px')
     ),
-  fluidRow(  
     column(6,
-           dataTableOutput('tableTree')
+           dataTableOutput('d3Tree_tabla')
       )
-    )
   )
 )
