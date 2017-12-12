@@ -7,7 +7,7 @@ library(shiny)
 library(stringr)
 library(DT)
 #library(plyr)
-#library(dplyr)
+library(dplyr)
 library(tidyverse)
 library(d3Tree)
 library(slickR)
@@ -17,9 +17,21 @@ library(networkD3)
 library(knitr)
 library(rpivotTable)
 library(data.table)
+library(leaflet)
+library(rgdal)
+library(shinythemes)
+library (ggplot2)
+library(tidyr)
+library(ggthemes)
+options(scipen = 999)
+theme_set(theme_classic())
+
+
 
 # fuerzo summarise de dplyr
 summarise <- dplyr::summarise
+
+guate <- readOGR("shapes/gt.shp",  encoding = "UTF-8")
 
 # Declaro funciones ------------------------------
 source("funciones.R", local = TRUE)
@@ -45,4 +57,12 @@ df <- group_by(tabla_cruda,Entidad,Programa,Unidad.Ejecutora,Grupo.Gasto,Tipo.de
   dplyr::summarise(monto = sum(Recomendado.2018, na.rm=TRUE))
 
 
+# Cargando el archivo
 
+INEpob <- readRDS("datos/poblacion.rds")
+
+anios <- sort(unique(INEpob$anio))
+
+Guatemala <- read.csv("datos/guatemala.csv")
+
+depto <- sort(unique(Guatemala$departamento))
