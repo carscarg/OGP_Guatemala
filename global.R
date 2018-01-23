@@ -23,15 +23,19 @@ library(shinythemes)
 library (ggplot2)
 library(tidyr)
 library(ggthemes)
+library (openxlsx)
+library(googleVis)
+
 options(scipen = 999)
 theme_set(theme_classic())
-
+#options(encoding = 'UTF-8')
 
 
 # fuerzo summarise de dplyr
 summarise <- dplyr::summarise
-
-guate <- readOGR("shapes/gt.shp",  encoding = "UTF-8")
+#setCPLConfigOption("SHAPE_ENCODING", "")
+guate <- readOGR("shapes/gt_INE.shp")
+guate$Municipio <- iconv(guate$Municipio, "UTF-8", "UTF-8")
 
 # Declaro funciones ------------------------------
 source("funciones.R", local = TRUE)
@@ -61,8 +65,12 @@ df <- group_by(tabla_cruda,Entidad,Programa,Unidad.Ejecutora,Grupo.Gasto,Tipo.de
 
 INEpob <- readRDS("datos/poblacion.rds")
 
+print(head(INEpob))
+
 anios <- sort(unique(INEpob$anio))
 
-Guatemala <- read.csv("datos/guatemala.csv")
+Guatemala <- readRDS("datos/guatemala.rds")
+# Guatemala <- read.csv("datos/guatemala.csv")
+# Guatemala <- enc2native(Guatemala)
 
 depto <- sort(unique(Guatemala$departamento))

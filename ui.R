@@ -4,15 +4,19 @@ tagList(
 
   fluidPage(
     fluidRow(
-      column(1,""),
-      column(10,  
+      column(12, style = "background-color:#00698A; text-color:white; height:15px;"),
+      column(1, ''),
+      column(3, tags$img(src = "logominfin_ajustado.png")),
+      column(6, offset = 2, tags$img(src = "header.png" )),
+      column(12, style = "background-color:#00698A; text-color:white; height:15px;"),
+      column(10, offset = 1 , 
   
 HTML("<link rel='stylesheet' href='css/style.css' media='screen'>"),
 HTML("<title>Observatorio del Gasto Público</title>"),
+HTML(" <meta charset='UTF-8'>"),
 tags$style(type="text/css", ".navbar, .navbar-static-top, navbar-default {height: 60px;} ."),
 tags$style(type="text/css", "poblacion {height: 50%; width: 50%;} ."),
-tags$img(src = "logotest.png", width = "100%", height = "100%"),
-br(),
+
 #HTML("<header id='header' class='container clearfix'>"),
 
 tags$style(type="text/css", "body {width: 100%; padding-top: 5px;}"),
@@ -23,45 +27,52 @@ navbarPage(theme = shinytheme("spacelab"),"", position = "static-top",
                   tabPanel("Inicio",
                            
                           #leafletOutput("map", width = "100%", height = 600),
-                           
-                           
+                           fluidRow(
+                           #column(12,style = "background-color:#00698A; text-color:white; height:15px;"),  
+                             
+                           column(7,
                            HTML("<center>"),slickROutput("imginicio", width = "940px", height = "380px"),HTML("</center>"),
-                           br(), br(),
+                           br()),
+                           column(3, offset = 2, 
+                                  includeHTML("html/scroll.html")
+                                  ),
+                           column(10, offset = 1,
                            includeHTML("html/slider.html")
                           ## shiny::includeMarkdown("rmd/test.Rmd")
+                           ))
 
                     ),
                   tabPanel("¿Qué es el OGP?",
                            h3("¿Qué es el OGP?"),
-                           tags$iframe(style="height:800px; width:100%; scrolling=yes", 
+                           tags$iframe(style="height:1000px; width:100%; scrolling=yes", 
                                        src="http://observatorio.minfin.gob.gt/document/queeselogp.pdf")
                            
                            
                   ),
                   tabPanel("Marco Jurídico",
                            h3("Marco Jurídico"),
-                           tags$iframe(style="height:800px; width:100%; scrolling=yes", 
+                           tags$iframe(style="height:1000px; width:100%; scrolling=yes", 
                                        src="http://observatorio.minfin.gob.gt/document/marcolegal.pdf")
                            
                   ),
                   tabPanel("¿Cómo funciona?",
                            h3("¿Cómo funciona?"),
-                           tags$iframe(style="height:800px; width:100%; scrolling=yes", 
+                           tags$iframe(style="height:1000px; width:100%; scrolling=yes", 
                                        src="http://observatorio.minfin.gob.gt/document/comofunciona.pdf")
                            
                   )),
            navbarMenu("Ejes", 
                     tabPanel("Salud", icon=icon("heart", lib = "glyphicon"),
-                      h3("Salud")
+                             source("ui/ui_ejes/ui_salud.R", local = TRUE)$value
                     ),
                     tabPanel("Educación", icon=icon("education", lib = "glyphicon"),
-                      h3("Educación")
+                             source("ui/ui_ejes/ui_educacion.R", local = TRUE)$value
                     ),
                     tabPanel("Seguridad", icon=icon("user", lib = "glyphicon"),
-                      h3("Seguridad")
+                             source("ui/ui_ejes/ui_seguridad.R", local = TRUE)$value
                     ),
                     tabPanel("Infraestructura", icon=icon("road", lib = "glyphicon"),
-                      h3("Infraestructura")
+                             source("ui/ui_ejes/ui_infraestructura.R", local = TRUE)$value
                   )),
            
            navbarMenu("Infórmate", icon=icon("info-sign", lib = "glyphicon"),
@@ -93,7 +104,7 @@ navbarPage(theme = shinytheme("spacelab"),"", position = "static-top",
     ),
 HTML("</header>")
   ),
-column(10, offset = 1, style = "background-color:#001345; text-color:white;",HTML("<br />"), "Ministerio de Finanzas Públicas - Copyright 2018", HTML("<br />"),HTML("&nbsp;"))
+column(12, style = "background-color:#00698A; text-color:white;",HTML("<br />"), "Ministerio de Finanzas Públicas - Copyright 2018", HTML("<br />"),HTML("&nbsp;"))
 
 ) ))
 #source("ui/ui_ejes.R")

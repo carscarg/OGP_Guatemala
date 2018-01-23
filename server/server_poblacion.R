@@ -6,7 +6,7 @@ output$combo2 <- renderUI({
 })
 
 
-  
+
   
   
   
@@ -40,12 +40,20 @@ tabla <- reactive({
   
 })
   
+
+output$descargar <- downloadHandler(
+  filename = "poblacion.csv",
+  content = function(file) {
+    write.csv(tabla(), file, row.names = FALSE)
+  }
+)
+
   
   output$poblacion_tabla <- renderDataTable({
  
     datatable(tabla(), extensions="Scroller", style="bootstrap", class="compact", width="100%",
-              options=list(dom="ft",deferRender=TRUE, scroller=FALSE)) %>%
-      formatCurrency(c(2)) %>% 
+              options=list(dom="ft",deferRender=TRUE, scroller=FALSE, pageLength = 25)) %>%
+     
       formatStyle(c(0), target='row', fontSize = '80%')
     
   })
@@ -98,7 +106,7 @@ tabla <- reactive({
       
       # Se agrega t?tulo de eje Y
       
-      hc_yAxis(title = list(text = "Poblaci?n")) %>%
+      hc_yAxis(title = list(text = "Población")) %>%
       
       # Se definen valores para eje X
       
@@ -107,17 +115,17 @@ tabla <- reactive({
       # Se configura la herramienta de cuadro de informaci?n
       
       hc_tooltip(valueDecimals = 0, headerFormat = "",
-                 pointFormat = "{point.category} A?os <br> Poblaci?n:<b>{point.y}") %>%
+                 pointFormat = "{point.category} Años <br> Población:<b>{point.y}") %>%
       
       # Se agregan cr?ditos
       
       hc_credits(enabled = TRUE,
-                 text = "Fuente: Instituto Nacional de Estad?stica",
+                 text = "Fuente: Instituto Nacional de Estadística",
                  style = list(fontSize = "10px"))%>%
       
       # Se agrega el t?tulo del gr?fico
       
-      hc_title(text = "Proyecci?n de poblaci?n",
+      hc_title(text = "Proyección de población",
                style = list(fontWeight = "bold")) 
     
   })
